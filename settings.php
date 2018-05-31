@@ -26,15 +26,19 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
-    $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_starred',
+    $options = array('Off', 'On', 'On w/ title');
+
+    $settings->add(new admin_setting_configselect('block_starred_courses_display_starred',
         get_string('settings:display_starred:desc', 'block_starred_courses'),
         get_string('settings:display_starred:subdesc', 'block_starred_courses'),
-        1));
+        1,
+        $options));
 
-    $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_recent',
+    $settings->add(new admin_setting_configselect('block_starred_courses_display_recent',
         get_string('settings:display_recent:desc', 'block_starred_courses'),
         get_string('settings:display_recent:subdesc', 'block_starred_courses'),
-        0));
+        0,
+        $options));
 
     $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_toggle',
         get_string('settings:display_toggle:desc', 'block_starred_courses'),

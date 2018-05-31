@@ -55,11 +55,11 @@ class block_starred_courses extends block_list {
         $this->content->icons = array();
         $this->content->footer = '';
 
-        if ($CFG->block_starred_courses_display_starred && !empty(array_filter(get_starred_course_ids($USER->id)))) {
+        if ($CFG->block_starred_courses_display_starred > 0) {
             $this->make_starred();
         }
 
-        if ($CFG->block_starred_courses_display_recent && !empty(get_recent_courses($USER->id))) {
+        if ($CFG->block_starred_courses_display_recent > 0) {
             $this->make_recent();
         }
 
@@ -87,16 +87,29 @@ class block_starred_courses extends block_list {
         return $separator;
     }
 
+    public function make_title($text) {
+        $this->content->items[] = $this->_get_title($text);
+    }
+
+    public function _get_title($text) {
+        $title = html_writer::span($text, 'title');
+        return $title;
+    }
+
     public function make_starred() {
-        global $DB, $USER;
+        global $DB, $USER, $CFG;
 
         if (! empty($starred = array_filter(get_starred_courses($USER->id)))) {
+            $this->make_separator();
+            if ($CFG->block_starred_courses_display_starred === 2) {
+                $this->make_title(get_string('content:starred_title', 'block_starred_courses'));
+            }
             $this->make_course_links($starred);
         }
     }
 
     public function make_recent() {
-        global $USER;
+        global $USER, $CFG;
 
         $courses = get_recent_courses($USER->id);
         $courseids = array_map( function($c) {
@@ -112,6 +125,11 @@ class block_starred_courses extends block_list {
 
         if (!empty($finalcourses)) {
             $this->make_separator();
+            print_r("make title?");
+            if ($CFG->block_starred_courses_display_recent == 2) {
+                print_r("make TITLE");
+                $this->make_title(get_string('content:recent_title', 'block_starred_courses'));
+            }
             $this->make_course_links($finalcourses);
         }
     }

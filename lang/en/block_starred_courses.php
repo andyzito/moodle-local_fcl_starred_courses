@@ -22,9 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['settings:display_starred:desc'] = 'Display starred courses?';
+$string['settings:display_starred:desc'] = 'Starred courses display mode';
 $string['settings:display_starred:subdesc'] = '';
-$string['settings:display_recent:desc'] = 'Display recently accessed courses?';
+$string['settings:display_recent:desc'] = 'Recently accessed courses display mode';
 $string['settings:display_recent:subdesc'] = '';
 $string['settings:display_toggle:desc'] = 'Display star/unstar link?';
 $string['settings:display_toggle:subdesc'] = 'Appears at the bottom of the block on course pages';
@@ -43,6 +43,9 @@ $string['errors:front_page_star'] = 'Cannot star the front page!';
 
 $string['notify:course_unstarred'] = 'The course {$a->fullname} has been unstarred.';
 $string['notify:course_starred'] = 'The course {$a->fullname} has been starred.';
+
+$string['content:starred_title'] = 'Starred Courses';
+$string['content:recent_title'] = 'Recent Courses';
 
 $string['pluginname'] = 'Starred courses';
 $string['starred_courses:canconfig'] = 'Configure starred courses block';
