@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Hampshire starred_courses block
  *
  * @package    block_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
@@ -23,8 +24,33 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2018053005;
-$plugin->requires = 2018051700;
-$plugin->component = 'block_starred_courses';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->release = '1.0.0';
+$capabilities = array(
+
+    'block/starred_courses:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+
+    'block/starred_courses:myaddinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+        ),
+    ),
+
+    'block/starred_courses:canstar' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_USER,
+        'archetypes' => array(
+            'user' => CAP_ALLOW,
+        )
+    ),
+);

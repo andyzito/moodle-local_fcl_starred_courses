@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
-    $settings->add(new admin_setting_configcheckbox('block_starred_courses__display_starred',
+    $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_starred',
         get_string('settings:display_starred_desc', 'block_starred_courses'),
         get_string('settings:display_starred_subdesc', 'block_starred_courses'),
         1));

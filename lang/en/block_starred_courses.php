@@ -37,7 +37,14 @@ $string['settings:starred_limit_subdesc'] = '';
 $string['settings:starred_limit_behavior_desc'] = 'Starred course limit exceeded behavior';
 $string['settings:starred_limit_behavior_subdesc'] = 'If a user stars more courses than allowed by the starred course limit setting above, the block can simply not display any courses past the limit, display a "See all..." link, or wrap the course links in a scrollable box.';
 
+$string['errors:front_page_star'] = 'Cannot star the front page!';
+
+$string['notify:course_unstarred'] = 'The course {$a->fullname} has been unstarred.';
+$string['notify:course_starred'] = 'The course {$a->fullname} has been starred.';
+
 $string['pluginname'] = 'Starred courses';
 $string['starred_courses:canconfig'] = 'Configure starred courses block';
+$string['starred_courses:canstar'] = 'Star and unstar courses';
 $string['starred_courses:addinstance'] = 'Add an instance of the starred courses block';
+$string['starred_courses:myaddinstance'] = 'Add an instance of the starred courses block';
 $string['title'] = 'Starred Courses';

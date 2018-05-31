@@ -1,0 +1,12 @@
+.block_starred_courses .separator {
+    display: block;
+    width: 90%;
+    height: 1px;
+    background-color: #868e96;
+    margin: 1em auto;
+}
+
+.block_starred_courses .toggle_link {
+    display: block;
+    text-align: center;
+}

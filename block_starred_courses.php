@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Temporary Enrolments Block.
+ * Starred Courses Block.
  *
  * @package    block_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
@@ -26,10 +26,13 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/blocks/starred_courses/lib.php');
 
-class block_starred_courses extends block_base {
+class block_starred_courses extends block_list {
 
     public function init() {
+        global $USER;
+
         $this->title = get_string('title', 'block_starred_courses');
+        initialize_starred_courses_user_preference($USER->id);
     }
 
     public function applicable_formats() {
@@ -45,11 +48,68 @@ class block_starred_courses extends block_base {
     }
 
     public function get_content() {
-        global $CFG, $DB, $COURSE, $USER;
+        global $CFG, $COURSE;
 
         $this->content = new stdClass();
-        $this->content->text = "<a>TEST</a>";
+        $this->content->items = array();
+        $this->content->icons = array();
+        $this->content->footer = '';
+
+        if ($CFG->block_starred_courses_display_starred) {
+            $this->make_starred();
+        }
+
+        if ($CFG->block_starred_courses_display_recent) {
+            $this->make_recent();
+        }
+
+        if ($CFG->block_starred_courses_display_toggle && $this->in_course()) {
+            $this->content->items[] = $this->get_separator();
+            $this->content->footer = $this->get_toggle_link();
+        }
         return $this->content;
+    }
+
+    public function in_course() {
+        global $COURSE;
+
+        return isset($COURSE) && $COURSE->id > 1;
+    }
+
+    public function get_separator() {
+        $separator = html_writer::span('', 'separator');
+        return $separator;
+    }
+
+    public function make_starred() {
+        global $USER;
+
+        $starred = get_starred_courses($USER->id);
+        foreach ($starred as $course) {
+            $courselink = html_writer::link(
+                new moodle_url('/courses/view.php', array('id' => $course->id)),
+                $course->fullname
+            );
+            $this->content->items[] = $courselink;
+        }
+    }
+
+    public function make_recent() {
+
+    }
+
+    public function get_toggle_link() {
+        global $COURSE;
+
+        $linktext = 'Star/unstar this course';
+
+        $togglelink = html_writer::link(
+                new moodle_url('/blocks/starred_courses/toggle_starred.php', array('courseid' => $COURSE->id)),
+                $linktext,
+                array('class' => 'toggle_link')
+            );
+
+        return $togglelink;
     }
 
     // public function content_is_trusted() {
