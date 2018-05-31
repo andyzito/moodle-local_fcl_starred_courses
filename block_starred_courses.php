@@ -127,9 +127,9 @@ class block_starred_courses extends block_list {
     }
 
     public function get_toggle_link() {
-        global $COURSE;
+        global $COURSE, $USER;
 
-        $linktext = 'Star/unstar this course';
+        $linktext = course_is_starred($USER->id, $COURSE->id) ? 'Unstar this course' : 'Star this course';
 
         $togglelink = html_writer::link(
                 new moodle_url('/blocks/starred_courses/toggle_starred.php', array('courseid' => $COURSE->id)),
