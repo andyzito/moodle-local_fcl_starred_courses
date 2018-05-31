@@ -70,7 +70,7 @@ function get_recent_courses($userid) {
             FROM {user_lastaccess} ac";
 
     if ($CFG->block_starred_courses_recent_enrolled_only) {
-        $sql .= "JOIN {course} c ON ac.courseid=c.id
+        $sql .= " JOIN {course} c ON ac.courseid=c.id
                 JOIN {enrol} e ON c.id=e.courseid
                 JOIN {user_enrolments} ue ON e.id=ue.enrolid
                 JOIN {user} u ON u.id=ue.userid";
@@ -78,6 +78,7 @@ function get_recent_courses($userid) {
     }
 
     $sql .= " WHERE " . implode(' AND ', $conditions);
+    $sql .= " ORDER BY ac.timeaccess DESC";
     $sql .= $limit ? " LIMIT $limit" : '';
     $accesses = $DB->get_records_sql($sql);
     $courseids = array();
