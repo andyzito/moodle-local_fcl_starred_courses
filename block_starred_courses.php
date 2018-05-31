@@ -101,7 +101,7 @@ class block_starred_courses extends block_list {
 
         if (! empty($starred = array_filter(get_starred_courses($USER->id)))) {
             $this->make_separator();
-            if ($CFG->block_starred_courses_display_starred === 2) {
+            if ($CFG->block_starred_courses_display_starred == 2) {
                 $this->make_title(get_string('content:starred_title', 'block_starred_courses'));
             }
             $this->make_course_links($starred);

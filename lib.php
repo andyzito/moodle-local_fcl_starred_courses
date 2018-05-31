@@ -122,6 +122,7 @@ function process_coursename($name) {
 
     if ($length > 0 && strlen($name) > $length) {
         $name = substr($name, 0, $length - 3);
+        $name = trim($name);
         $name .= "...";
     }
     return $name;
