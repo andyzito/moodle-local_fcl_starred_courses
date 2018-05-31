@@ -59,8 +59,10 @@ function unstar_course($userid, $courseid) {
     return false;
 }
 
-function get_recent_courses($userid, $limit, $enrolled_only) {
+function get_recent_courses($userid) {
     global $DB, $CFG;
+
+    $limit = $CFG->block_starred_courses_recent_limit;
 
     $conditions = array("ac.userid=$userid");
 
@@ -76,8 +78,19 @@ function get_recent_courses($userid, $limit, $enrolled_only) {
     }
 
     $sql .= " WHERE " . implode(' AND ', $conditions);
-    $sql .= " LIMIT $limit";
+    $sql .= $limit ? " LIMIT $limit" : '';
     $accesses = $DB->get_records_sql($sql);
+    $courseids = array();
+    foreach ($accesses as $access) {
+        $courseids[] = $access->courseid;
+    }
+    $courses = array();
+    $courseids = array_unique($courseids);
+    foreach ($courseids as $courseid) {
+        $course = $DB->get_record('course', array('id' => $courseid));
+        $courses[] = $course;
+    }
+    return $courses;
 }
 
 function get_starred_course_ids($userid) {

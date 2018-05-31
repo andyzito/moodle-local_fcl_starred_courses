@@ -48,25 +48,23 @@ class block_starred_courses extends block_list {
     }
 
     public function get_content() {
-        global $CFG, $COURSE;
+        global $CFG, $COURSE, $USER;
 
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();
         $this->content->footer = '';
 
-        if ($CFG->block_starred_courses_display_starred) {
+        if ($CFG->block_starred_courses_display_starred && !empty(array_filter(get_starred_course_ids($USER->id)))) {
             $this->make_starred();
         }
 
-        if ($CFG->block_starred_courses_display_recent) {
+        if ($CFG->block_starred_courses_display_recent && !empty(get_recent_courses($USER->id))) {
             $this->make_recent();
         }
 
         if ($CFG->block_starred_courses_display_toggle && $this->in_course()) {
-            if ($this->content->items !== array()) {
-                $this->content->items[] = $this->get_separator();
-            }
+            $this->make_separator();
             $this->content->footer = $this->get_toggle_link();
         }
         return $this->content;
@@ -78,27 +76,54 @@ class block_starred_courses extends block_list {
         return isset($COURSE) && $COURSE->id > 1;
     }
 
+    public function make_separator() {
+        if ($this->content->items !== array()) {
+            $this->content->items[] = $this->get_separator();
+        }
+    }
+
     public function get_separator() {
         $separator = html_writer::span('', 'separator');
         return $separator;
     }
 
     public function make_starred() {
-        global $USER;
+        global $DB, $USER;
 
         if (! empty($starred = array_filter(get_starred_courses($USER->id)))) {
-            foreach ($starred as $course) {
-                $courselink = html_writer::link(
-                    new moodle_url('/course/view.php', array('id' => $course->id)),
-                    process_coursename($course->fullname)
-                );
-                $this->content->items[] = $courselink;
-            }
+            $this->make_course_links($starred);
         }
     }
 
     public function make_recent() {
+        global $USER;
 
+        $courses = get_recent_courses($USER->id);
+        $courseids = array_map( function($c) {
+            return $c->id;
+        }, $courses);
+
+        $starredids = get_starred_course_ids($USER->id);
+        $courseids = array_diff($courseids, $starredids);
+
+        $finalcourses = array_filter( $courses, function($c) use ($courseids){
+            return in_array($c->id, $courseids);
+        });
+
+        if (!empty($finalcourses)) {
+            $this->make_separator();
+            $this->make_course_links($finalcourses);
+        }
+    }
+
+    public function make_course_links($courses) {
+        foreach ($courses as $course) {
+            $courselink = html_writer::link(
+                new moodle_url('/course/view.php', array('id' => $course->id)),
+                process_coursename($course->fullname)
+            );
+            $this->content->items[] = $courselink;
+        }
     }
 
     public function get_toggle_link() {

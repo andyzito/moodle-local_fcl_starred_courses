@@ -122,7 +122,6 @@ if (course_is_starred($USER->id, $courseid)) {
     star_course($USER->id, $courseid);
     echo get_string('notify:course_starred', 'block_starred_courses', $COURSE);
 }
-
 //
 // if ($canimpersonate) {
 //     $sql = "SELECT DISTINCT(l.userid), u.firstname, u.lastname, u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename
