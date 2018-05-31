@@ -25,12 +25,6 @@ require_once('../../config.php');
 require_once('lib.php');
 
 $courseid    = required_param('courseid', PARAM_INT);
-// $type        = optional_param('type', 'log', PARAM_ALPHA);
-// $typeid      = optional_param('typeid', 0, PARAM_INT);
-// $action      = optional_param('action', null, PARAM_ALPHA);
-// $page        = optional_param('page', 0, PARAM_INT);
-// $perpage     = optional_param('perpage', 10, PARAM_INT);
-// $userid      = optional_param('userid', $USER->id, PARAM_INT);
 $course      = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 
 require_login($course);
@@ -40,29 +34,17 @@ $coursecontext = context_course::instance($course->id);
 $usercontext = context_user::instance($USER->id);
 require_capability('block/starred_courses:canstar', $usercontext);
 
-// Has to be in on of these.
-// if (!in_array($type, array('log', 'drafts'))) {
-//     print_error('not_valid', 'block_clampmail', '', $type);
-// }
+if ($courseid ===1 ) {
+    $status = get_string('errors:front_page_star', 'block_starred_courses');
+}
 
-// $canimpersonate = has_capability('block/clampmail:canimpersonate', $coursecontext);
-// if (!$canimpersonate and $userid != $USER->id) {
-//     print_error('not_valid_user', 'block_clampmail');
-// }
-
-// $config = block_clampmail\config::load_configuration($course);
-//
-// $validactions = array('delete', 'confirm');
-//
-// $candelete = ($type == 'drafts');
-//
-// if (isset($action) and !in_array($action, $validactions)) {
-//     print_error('not_valid_action', 'block_clampmail', '', $action);
-// }
-//
-// if (isset($action) and empty($typeid)) {
-//     print_error('not_valid_typeid', 'block_clampmail', '', $action);
-// }
+if (course_is_starred($USER->id, $courseid)) {
+    unstar_course($USER->id, $courseid);
+    $status = get_string('notify:course_unstarred', 'block_starred_courses', $COURSE);
+} else {
+    star_course($USER->id, $courseid);
+    $status = get_string('notify:course_starred', 'block_starred_courses', $COURSE);
+}
 
 $blockname = get_string('pluginname', 'block_starred_courses');
 $header = $blockname;
@@ -77,81 +59,9 @@ $PAGE->set_url('/blocks/starred_courses/toggle_starred.php', array('courseid' =>
 $PAGE->set_pagetype($blockname);
 $PAGE->set_pagelayout('standard');
 
-// $dbtable = 'block_clampmail_' . $type;
-//
-// $params = array('userid' => $userid, 'courseid' => $courseid);
-// $count = $DB->count_records($dbtable, $params);
-//
-// switch ($action) {
-//     case "confirm":
-//         if (clampmail::cleanup($dbtable, $coursecontext->id, $typeid)) {
-//             $url = new moodle_url('/blocks/clampmail/emaillog.php', array(
-//                 'courseid' => $courseid,
-//                 'type' => $type
-//             ));
-//             redirect($url);
-//         } else {
-//             print_error('delete_failed', 'block_clampmail', '', $typeid);
-//         }
-//     case "delete":
-//         $html = clampmail::delete_dialog($courseid, $type, $typeid);
-//         break;
-//     default:
-//         $html = clampmail::list_entries($courseid, $type, $page, $perpage, $userid, $count, $candelete);
-// }
-//
-// if ($canimpersonate and $USER->id != $userid) {
-//     $user = $DB->get_record('user', array('id' => $userid));
-//     $header .= ' for '. fullname($user);
-// }
-//
 echo $OUTPUT->header();
 echo $OUTPUT->heading($header);
 
+echo $status;
 
-if ($courseid ===1 ) {
-    echo get_string('errors:front_page_star', 'block_starred_courses');
-    echo $OUTPUT->footer();
-    die;
-}
-
-if (course_is_starred($USER->id, $courseid)) {
-    unstar_course($USER->id, $courseid);
-    echo get_string('notify:course_unstarred', 'block_starred_courses', $COURSE);
-} else {
-    star_course($USER->id, $courseid);
-    echo get_string('notify:course_starred', 'block_starred_courses', $COURSE);
-}
-//
-// if ($canimpersonate) {
-//     $sql = "SELECT DISTINCT(l.userid), u.firstname, u.lastname, u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename
-//                 FROM {block_clampmail_$type} l,
-//                      {user} u
-//                 WHERE u.id = l.userid AND courseid = ? ORDER BY u.lastname";
-//     $users = $DB->get_records_sql($sql, array($courseid));
-//
-//     $useroptions = array_map(function($user) { return fullname($user);
-//     }, $users);
-//
-//     $url = new moodle_url('emaillog.php', array(
-//         'courseid' => $courseid,
-//         'type' => $type
-//     ));
-//
-//     $defaultoption = array('' => get_string('select_users', 'block_clampmail'));
-//
-//     echo $OUTPUT->single_select($url, 'userid', $useroptions, $userid, $defaultoption);
-// }
-//
-// if (empty($count)) {
-//     echo $OUTPUT->notification(get_string('no_'.$type, 'block_clampmail'));
-//
-//     echo $OUTPUT->continue_button('/blocks/clampmail/email.php?courseid='.$courseid);
-//
-//     echo $OUTPUT->footer();
-//     exit;
-// }
-//
-// echo $html;
-//
 echo $OUTPUT->footer();
