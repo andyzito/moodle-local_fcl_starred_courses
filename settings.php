@@ -41,6 +41,11 @@ if ($ADMIN->fulltree) {
         get_string('settings:display_toggle_subdesc', 'block_starred_courses'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('block_starred_courses_truncate_names',
+        get_string('settings:display_toggle_desc', 'block_starred_courses'),
+        get_string('settings:display_toggle_subdesc', 'block_starred_courses'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('block_starred_courses_recent_enrolled_only',
         get_string('settings:recent_enrolled_only_desc', 'block_starred_courses'),
         get_string('settings:recent_enrolled_only_subdesc', 'block_starred_courses'),

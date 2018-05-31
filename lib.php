@@ -92,11 +92,24 @@ function get_starred_courses($userid) {
     global $DB;
 
     $starred_courses = array();
-    if ($starred_ids = get_starred_course_ids()) {
+    if ($starred_ids = get_starred_course_ids($userid)) {
         foreach ($starred_ids as $courseid) {
             $course = $DB->get_record('course', array('id' => $courseid));
             $starred_courses[] = $course;
         }
     }
     return $starred_courses;
+}
+
+function process_coursename($name) {
+    global $CFG;
+
+    $truncate = $CFG->block_starred_courses_truncate_names;
+    $length = 20;
+
+    if ($truncate && strlen($name) > $length) {
+        $name = substr($name, 0, $length - 3);
+        $name .= "...";
+    }
+    return $name;
 }

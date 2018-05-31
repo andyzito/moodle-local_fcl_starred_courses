@@ -115,11 +115,11 @@ if ($courseid ===1 ) {
     die;
 }
 
-if (course_is_starred($courseid, $USER->id)) {
-    unstar_course($courseid, $USER->id);
+if (course_is_starred($USER->id, $courseid)) {
+    unstar_course($USER->id, $courseid);
     echo get_string('notify:course_unstarred', 'block_starred_courses', $COURSE);
 } else {
-    star_course($courseid, $USER->id);
+    star_course($USER->id, $courseid);
     echo get_string('notify:course_starred', 'block_starred_courses', $COURSE);
 }
 

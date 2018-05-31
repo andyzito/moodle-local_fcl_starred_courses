@@ -64,7 +64,9 @@ class block_starred_courses extends block_list {
         }
 
         if ($CFG->block_starred_courses_display_toggle && $this->in_course()) {
-            $this->content->items[] = $this->get_separator();
+            if ($this->content->items !== array()) {
+                $this->content->items[] = $this->get_separator();
+            }
             $this->content->footer = $this->get_toggle_link();
         }
         return $this->content;
@@ -84,13 +86,14 @@ class block_starred_courses extends block_list {
     public function make_starred() {
         global $USER;
 
-        $starred = get_starred_courses($USER->id);
-        foreach ($starred as $course) {
-            $courselink = html_writer::link(
-                new moodle_url('/courses/view.php', array('id' => $course->id)),
-                $course->fullname
-            );
-            $this->content->items[] = $courselink;
+        if (! empty($starred = array_filter(get_starred_courses($USER->id)))) {
+            foreach ($starred as $course) {
+                $courselink = html_writer::link(
+                    new moodle_url('/course/view.php', array('id' => $course->id)),
+                    process_coursename($course->fullname)
+                );
+                $this->content->items[] = $courselink;
+            }
         }
     }
 
