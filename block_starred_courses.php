@@ -48,7 +48,7 @@ class block_starred_courses extends block_base {
         global $CFG, $DB, $COURSE, $USER;
 
         $this->content = new stdClass();
-        $this->content->text = "<p>TEST</p>";
+        $this->content->text = "<a>TEST</a>";
         return $this->content;
     }
 
