@@ -61,6 +61,11 @@ if ($ADMIN->fulltree) {
         get_string('settings:recent_enrolled_only:subdesc', 'block_starred_courses'),
         0));
 
+    $settings->add(new admin_setting_configcheckbox('block_starred_courses_exclude_starred_from_recent',
+        get_string('settings:exclude_starred_from_recent:desc', 'block_starred_courses'),
+        get_string('settings:exclude_starred_from_recent:subdesc', 'block_starred_courses'),
+        1));
+
     $options = array('Off');
     $options = array_merge($options, range(1,10));
 

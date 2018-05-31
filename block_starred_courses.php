@@ -119,15 +119,17 @@ class block_starred_courses extends block_list {
         $starredids = get_starred_course_ids($USER->id);
         $courseids = array_diff($courseids, $starredids);
 
-        $finalcourses = array_filter( $courses, function($c) use ($courseids){
-            return in_array($c->id, $courseids);
-        });
+        if ($CFG->block_starred_courses_exclude_starred_from_recent) {
+            $finalcourses = array_filter( $courses, function($c) use ($courseids){
+                return in_array($c->id, $courseids);
+            });
+        } else {
+            $finalcourses = $courses;
+        }
 
         if (!empty($finalcourses)) {
             $this->make_separator();
-            print_r("make title?");
             if ($CFG->block_starred_courses_display_recent == 2) {
-                print_r("make TITLE");
                 $this->make_title(get_string('content:recent_title', 'block_starred_courses'));
             }
             $this->make_course_links($finalcourses);

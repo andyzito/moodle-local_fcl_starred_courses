@@ -38,6 +38,8 @@ $string['settings:starred_limit:desc'] = 'Limit number of starred courses displa
 $string['settings:starred_limit:subdesc'] = '';
 $string['settings:starred_limit_behavior:desc'] = 'Starred course limit exceeded behavior';
 $string['settings:starred_limit_behavior:subdesc'] = 'If a user stars more courses than allowed by the starred course limit setting above, the block can simply not display any courses past the limit, display a "See all..." link, or wrap the course links in a scrollable box.';
+$string['settings:exclude_starred_from_recent:desc'] = 'Exclude starred courses from recent courses?';
+$string['settings:exclude_starred_from_recent:subdesc'] = "Don't display a course under the recent section if it is also a starred course";
 
 $string['errors:front_page_star'] = 'Cannot star the front page!';
 
