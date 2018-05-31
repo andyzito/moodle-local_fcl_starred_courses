@@ -27,42 +27,48 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_starred',
-        get_string('settings:display_starred_desc', 'block_starred_courses'),
-        get_string('settings:display_starred_subdesc', 'block_starred_courses'),
+        get_string('settings:display_starred:desc', 'block_starred_courses'),
+        get_string('settings:display_starred:subdesc', 'block_starred_courses'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_recent',
-        get_string('settings:display_recent_desc', 'block_starred_courses'),
-        get_string('settings:display_recent_subdesc', 'block_starred_courses'),
+        get_string('settings:display_recent:desc', 'block_starred_courses'),
+        get_string('settings:display_recent:subdesc', 'block_starred_courses'),
         0));
 
     $settings->add(new admin_setting_configcheckbox('block_starred_courses_display_toggle',
-        get_string('settings:display_toggle_desc', 'block_starred_courses'),
-        get_string('settings:display_toggle_subdesc', 'block_starred_courses'),
+        get_string('settings:display_toggle:desc', 'block_starred_courses'),
+        get_string('settings:display_toggle:subdesc', 'block_starred_courses'),
         1));
 
-    $settings->add(new admin_setting_configcheckbox('block_starred_courses_truncate_names',
-        get_string('settings:display_toggle_desc', 'block_starred_courses'),
-        get_string('settings:display_toggle_subdesc', 'block_starred_courses'),
-        1));
+    $options = array(0 => 'Off');
+    $range = range(10,50,5);
+    $temp = array_combine($range, $range);
+    $options = $options + $temp;
+
+    $settings->add(new admin_setting_configselect('block_starred_courses_name_length',
+        get_string('settings:name_length:desc', 'block_starred_courses'),
+        get_string('settings:name_length:subdesc', 'block_starred_courses'),
+        0,
+        $options));
 
     $settings->add(new admin_setting_configcheckbox('block_starred_courses_recent_enrolled_only',
-        get_string('settings:recent_enrolled_only_desc', 'block_starred_courses'),
-        get_string('settings:recent_enrolled_only_subdesc', 'block_starred_courses'),
+        get_string('settings:recent_enrolled_only:desc', 'block_starred_courses'),
+        get_string('settings:recent_enrolled_only:subdesc', 'block_starred_courses'),
         0));
 
     $options = array('Off');
-    array_push($options, range(1,10));
+    $options = array_merge($options, range(1,10));
 
     $settings->add(new admin_setting_configselect('block_starred_courses_recent_limit',
-        get_string('settings:recent_limit_desc', 'block_starred_courses'),
-        get_string('settings:recent_limit_subdesc', 'block_starred_courses'),
+        get_string('settings:recent_limit:desc', 'block_starred_courses'),
+        get_string('settings:recent_limit:subdesc', 'block_starred_courses'),
         5,
         $options));
 
     $settings->add(new admin_setting_configselect('block_starred_courses_starred_limit',
-        get_string('settings:starred_limit_desc', 'block_starred_courses'),
-        get_string('settings:starred_limit_subdesc', 'block_starred_courses'),
+        get_string('settings:starred_limit:desc', 'block_starred_courses'),
+        get_string('settings:starred_limit:subdesc', 'block_starred_courses'),
         0,
         $options));
 
@@ -73,8 +79,8 @@ if ($ADMIN->fulltree) {
     );
 
     $settings->add(new admin_setting_configselect('block_starred_courses_starred_limit_behavior',
-        get_string('settings:starred_limit_behavior_desc', 'block_starred_courses'),
-        get_string('settings:starred_limit_behavior_subdesc', 'block_starred_courses'),
+        get_string('settings:starred_limit_behavior:desc', 'block_starred_courses'),
+        get_string('settings:starred_limit_behavior:subdesc', 'block_starred_courses'),
         1,
         $options));
 }

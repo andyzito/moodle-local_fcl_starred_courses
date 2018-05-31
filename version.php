@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2018053005;
+$plugin->version = 2018053006;
 $plugin->requires = 2018051700;
 $plugin->component = 'block_starred_courses';
 $plugin->maturity = MATURITY_ALPHA;

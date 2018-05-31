@@ -22,20 +22,22 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['settings:display_starred_desc'] = 'Display starred courses?';
-$string['settings:display_starred_subdesc'] = '';
-$string['settings:display_recent_desc'] = 'Display recently accessed courses?';
-$string['settings:display_recent_subdesc'] = '';
-$string['settings:display_toggle_desc'] = 'Display star/unstar link?';
-$string['settings:display_toggle_subdesc'] = 'Appears at the bottom of the block on course pages';
-$string['settings:recent_limit_desc'] = 'Limit number of recent courses displayed';
-$string['settings:recent_limit_subdesc'] = '';
-$string['settings:recent_enrolled_only_desc'] = 'Limit recent courses by user enrolment?';
-$string['settings:recent_enrolled_only_subdesc'] = 'Display only recently accessed courses in which the user is enrolled.';
-$string['settings:starred_limit_desc'] = 'Limit number of starred courses displayed';
-$string['settings:starred_limit_subdesc'] = '';
-$string['settings:starred_limit_behavior_desc'] = 'Starred course limit exceeded behavior';
-$string['settings:starred_limit_behavior_subdesc'] = 'If a user stars more courses than allowed by the starred course limit setting above, the block can simply not display any courses past the limit, display a "See all..." link, or wrap the course links in a scrollable box.';
+$string['settings:display_starred:desc'] = 'Display starred courses?';
+$string['settings:display_starred:subdesc'] = '';
+$string['settings:display_recent:desc'] = 'Display recently accessed courses?';
+$string['settings:display_recent:subdesc'] = '';
+$string['settings:display_toggle:desc'] = 'Display star/unstar link?';
+$string['settings:display_toggle:subdesc'] = 'Appears at the bottom of the block on course pages';
+$string['settings:name_length:desc'] = 'Course name length limit';
+$string['settings:name_length:subdesc'] = 'Course names longer than the limit will be ellipsis truncated.';
+$string['settings:recent_enrolled_only:desc'] = 'Limit recent courses by user enrolment?';
+$string['settings:recent_enrolled_only:subdesc'] = 'Display only recently accessed courses in which the user is enrolled.';
+$string['settings:recent_limit:desc'] = 'Limit number of recent courses displayed';
+$string['settings:recent_limit:subdesc'] = '';
+$string['settings:starred_limit:desc'] = 'Limit number of starred courses displayed';
+$string['settings:starred_limit:subdesc'] = '';
+$string['settings:starred_limit_behavior:desc'] = 'Starred course limit exceeded behavior';
+$string['settings:starred_limit_behavior:subdesc'] = 'If a user stars more courses than allowed by the starred course limit setting above, the block can simply not display any courses past the limit, display a "See all..." link, or wrap the course links in a scrollable box.';
 
 $string['errors:front_page_star'] = 'Cannot star the front page!';
 

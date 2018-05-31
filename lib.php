@@ -117,10 +117,9 @@ function get_starred_courses($userid) {
 function process_coursename($name) {
     global $CFG;
 
-    $truncate = $CFG->block_starred_courses_truncate_names;
-    $length = 20;
+    $length = $CFG->block_starred_courses_name_length;
 
-    if ($truncate && strlen($name) > $length) {
+    if ($length > 0 && strlen($name) > $length) {
         $name = substr($name, 0, $length - 3);
         $name .= "...";
     }
