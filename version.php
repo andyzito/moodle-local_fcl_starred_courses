@@ -16,15 +16,15 @@
 
 /**
  *
- * @package    block_starred_courses
+ * @package    local_fcl_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2018053007;
+$plugin->version = 2018053008;
 $plugin->requires = 2018051700;
-$plugin->component = 'block_starred_courses';
+$plugin->component = 'local_fcl_starred_courses';
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = '1.0.0';

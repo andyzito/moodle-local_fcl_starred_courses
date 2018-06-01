@@ -17,7 +17,7 @@
 /**
  * Hampshire starred_courses block
  *
- * @package    block_starred_courses
+ * @package    local_fcl_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,28 +25,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $capabilities = array(
-
-    'block/starred_courses:addinstance' => array(
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-
-    'block/starred_courses:myaddinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-        ),
-    ),
-
-    'block/starred_courses:canstar' => array(
+    'local/starred_courses:canstar' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_USER,
         'archetypes' => array(

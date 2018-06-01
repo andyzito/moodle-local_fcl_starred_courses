@@ -32,21 +32,21 @@ require_login($course);
 // Check permissions.
 $coursecontext = context_course::instance($course->id);
 $usercontext = context_user::instance($USER->id);
-require_capability('block/starred_courses:canstar', $usercontext);
+require_capability('local/starred_courses:canstar', $usercontext);
 
 if ($courseid ===1 ) {
-    $status = get_string('errors:front_page_star', 'block_starred_courses');
+    $status = get_string('errors:front_page_star', 'local_fcl_starred_courses');
 }
 
 if (course_is_starred($USER->id, $courseid)) {
     unstar_course($USER->id, $courseid);
-    $status = get_string('notify:course_unstarred', 'block_starred_courses', $COURSE);
+    $status = get_string('notify:course_unstarred', 'local_fcl_starred_courses', $COURSE);
 } else {
     star_course($USER->id, $courseid);
-    $status = get_string('notify:course_starred', 'block_starred_courses', $COURSE);
+    $status = get_string('notify:course_starred', 'local_fcl_starred_courses', $COURSE);
 }
 
-$blockname = get_string('pluginname', 'block_starred_courses');
+$blockname = get_string('pluginname', 'local_fcl_starred_courses');
 $header = $blockname;
 
 $PAGE->set_context($coursecontext);

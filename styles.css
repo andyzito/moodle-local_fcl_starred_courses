@@ -1,4 +1,4 @@
-.block_starred_courses .separator {
+.local_fcl_starred_courses .separator {
     display: block;
     width: 90%;
     height: 1px;
@@ -6,12 +6,12 @@
     margin: 1em auto;
 }
 
-.block_starred_courses .toggle_link {
+.local_fcl_starred_courses .toggle_link {
     display: block;
     text-align: center;
 }
 
-.block_starred_courses .title {
+.local_fcl_starred_courses .title {
     display: block;
     text-align: center;
     font-weight: bold;

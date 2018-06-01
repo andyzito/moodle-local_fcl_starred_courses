@@ -17,7 +17,7 @@
 /**
  * starred_courses block settings
  *
- * @package    block_starred_courses
+ * @package    local_fcl_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -62,14 +62,14 @@ function unstar_course($userid, $courseid) {
 function get_recent_courses($userid) {
     global $DB, $CFG;
 
-    $limit = $CFG->block_starred_courses_recent_limit;
+    $limit = $CFG->local_fcl_starred_courses_recent_limit;
 
     $conditions = array("ac.userid=$userid");
 
     $sql = "SELECT ac.*
             FROM {user_lastaccess} ac";
 
-    if ($CFG->block_starred_courses_recent_enrolled_only) {
+    if ($CFG->local_fcl_starred_courses_recent_enrolled_only) {
         $sql .= " JOIN {course} c ON ac.courseid=c.id
                 JOIN {enrol} e ON c.id=e.courseid
                 JOIN {user_enrolments} ue ON e.id=ue.enrolid
@@ -118,7 +118,7 @@ function get_starred_courses($userid) {
 function process_coursename($name) {
     global $CFG;
 
-    $length = $CFG->block_starred_courses_name_length;
+    $length = $CFG->local_fcl_starred_courses_name_length;
 
     if ($length > 0 && strlen($name) > $length) {
         $name = substr($name, 0, $length - 3);

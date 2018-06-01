@@ -17,7 +17,7 @@
 /**
  * Starred Courses Block.
  *
- * @package    block_starred_courses
+ * @package    local_fcl_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,12 +26,12 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/blocks/starred_courses/lib.php');
 
-class block_starred_courses extends block_list {
+class local_fcl_starred_courses extends block_list {
 
     public function init() {
         global $USER;
 
-        $this->title = get_string('title', 'block_starred_courses');
+        $this->title = get_string('title', 'local_fcl_starred_courses');
         initialize_starred_courses_user_preference($USER->id);
     }
 
@@ -55,15 +55,15 @@ class block_starred_courses extends block_list {
         $this->content->icons = array();
         $this->content->footer = '';
 
-        if ($CFG->block_starred_courses_display_starred > 0) {
+        if ($CFG->local_fcl_starred_courses_display_starred > 0) {
             $this->make_starred();
         }
 
-        if ($CFG->block_starred_courses_display_recent > 0) {
+        if ($CFG->local_fcl_starred_courses_display_recent > 0) {
             $this->make_recent();
         }
 
-        if ($CFG->block_starred_courses_display_toggle && $this->in_course()) {
+        if ($CFG->local_fcl_starred_courses_display_toggle && $this->in_course()) {
             $this->make_separator();
             $this->content->footer = $this->get_toggle_link();
         }
@@ -101,8 +101,8 @@ class block_starred_courses extends block_list {
 
         if (! empty($starred = array_filter(get_starred_courses($USER->id)))) {
             $this->make_separator();
-            if ($CFG->block_starred_courses_display_starred == 2) {
-                $this->make_title(get_string('content:starred_title', 'block_starred_courses'));
+            if ($CFG->local_fcl_starred_courses_display_starred == 2) {
+                $this->make_title(get_string('content:starred_title', 'local_fcl_starred_courses'));
             }
             $this->make_course_links($starred);
         }
@@ -119,7 +119,7 @@ class block_starred_courses extends block_list {
         $starredids = get_starred_course_ids($USER->id);
         $courseids = array_diff($courseids, $starredids);
 
-        if ($CFG->block_starred_courses_exclude_starred_from_recent) {
+        if ($CFG->local_fcl_starred_courses_exclude_starred_from_recent) {
             $finalcourses = array_filter( $courses, function($c) use ($courseids){
                 return in_array($c->id, $courseids);
             });
@@ -129,8 +129,8 @@ class block_starred_courses extends block_list {
 
         if (!empty($finalcourses)) {
             $this->make_separator();
-            if ($CFG->block_starred_courses_display_recent == 2) {
-                $this->make_title(get_string('content:recent_title', 'block_starred_courses'));
+            if ($CFG->local_fcl_starred_courses_display_recent == 2) {
+                $this->make_title(get_string('content:recent_title', 'local_fcl_starred_courses'));
             }
             $this->make_course_links($finalcourses);
         }

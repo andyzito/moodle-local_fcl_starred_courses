@@ -17,10 +17,14 @@
 /**
  * Version details.
  *
- * @package    block_starred_courses
+ * @package    local_fcl_starred_courses
  * @copyright  2018 onwards Lafayette College ITS
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+$string['instance_settings:header'] = 'Starred Courses Filter';
+$string['instance_settings:title'] = 'Filter Title';
+$string['defaults:title'] = 'Starred Courses';
 
 $string['settings:display_starred:desc'] = 'Starred courses display mode';
 $string['settings:display_starred:subdesc'] = '';
