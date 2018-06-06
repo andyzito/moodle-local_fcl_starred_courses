@@ -29,15 +29,18 @@ defined('MOODLE_INTERNAL') || die;
 class edit_form {
 
     // Get the name of this plugin for use in the settings header
-    public function get_name() {
+    public static function get_header_name() {
         return get_string('instance_settings:header_name', 'local_fcl_starred_courses');
     }
 
     // Get the title of this filter
-    public function get_title() {
-        // Either use the global title, or default to the title from lang strings.
-        $title = $CFG->local_fcl_starred_courses_title ? $CFG->local_fcl_starred_courses_title : get_string('defaults:title', 'local_fcl_starred_courses');
+    public static function get_default_title() {
+        global $CFG;
 
+        // Either use the global title, or default to the title from lang strings.
+        // $title = $CFG->local_fcl_starred_courses_title ? $CFG->local_fcl_starred_courses_title : get_string('defaults:title', 'local_fcl_starred_courses');
+
+        $title = "Starred courses";
         return $title;
     }
 
@@ -45,14 +48,14 @@ class edit_form {
      * Builds the form to edit instance settings
      * @param MoodleQuickForm $mform
      */
-    protected function specific_definition($mform) {
+    public static function specific_definition($mform) {
         $pluginname = 'local_fcl_starred_courses';
 
         // Set the title for the block.
-        $fname = 'starred_courses_title';
-
-        $mform->addElement('text', $fname, get_string('instance_settings:title', $pluginname));
-        $mform->setDefault($fname, $title);
-        $mform->setType($fname, PARAM_TEXT);
+        // $fname = 'starred_courses_title';
+        //
+        $mform->addElement('checkbox', $fname, "Show star/unstar link?");
+        $mform->setDefault($fname, 1);
+        // $mform->setType($fname, PARAM_TEXT);
     }
 }

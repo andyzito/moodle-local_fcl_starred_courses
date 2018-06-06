@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['instance_settings:header'] = 'Starred Courses Filter';
+$string['instance_settings:header_name'] = 'Starred Courses';
 $string['instance_settings:title'] = 'Filter Title';
 $string['defaults:title'] = 'Starred Courses';
 

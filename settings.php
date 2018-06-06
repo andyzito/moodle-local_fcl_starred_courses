@@ -25,6 +25,8 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
+    $settings = new admin_settingpage('local_fcl_starred_courses', get_string('pluginname', 'local_fcl_starred_courses'));
+
     $settings->add(new admin_setting_configcheckbox('local_fcl_starred_courses_display_toggle',
         get_string('settings:display_toggle:desc', 'local_fcl_starred_courses'),
         get_string('settings:display_toggle:subdesc', 'local_fcl_starred_courses'),
